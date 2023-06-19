@@ -61,12 +61,19 @@ imageRouter.get("/:id", authenticateToken, imageGetId);
  *   post:
  *     summary: Cria uma nova imagem.
  *     tags: [Images]
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
- *             $ref: '#/components/schemas/ImageUpload'
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
+
  *     responses:
  *       201:
  *         description: Imagem criado com sucesso.
