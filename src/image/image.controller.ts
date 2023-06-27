@@ -19,7 +19,9 @@ export async function uploadImage(req: Request, res: Response) {
     const userId: number = jwtUserId;
     const result = await imageService.createImage(userId, data);
 
-    res.status(201).send(result);
+    const image = await imageService.getImageById(result.id);
+
+    res.status(201).send(image);
   } catch (error) {
     console.error(error);
     res.status(400).json({ message: (error as Error).message });
