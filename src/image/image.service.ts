@@ -35,7 +35,7 @@ export async function deleteImage(
 
   const deleteImage = await prisma.image.delete({ where: { id } });
   // Função para remover as imagens do diretório uploads
-  await deleteImageStored(id);
+  await deleteImageStored(Number(id));
   return deleteImage;
 }
 
@@ -66,7 +66,7 @@ export async function deleteImagesStored(userId: number): Promise<Image[]> {
     throw new Error("Voce nao possui imagens");
   }
   for (const image of images) {
-    fs.unlink(`../src/uploads/${image.nmStored}`, function (err) {
+    fs.unlink(`../../uploads/${image.nmStored}`, function (err) {
       if (err) throw err;
       console.log("File deleted!");
     });
